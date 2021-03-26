@@ -1,11 +1,11 @@
 ﻿<#
-NOM DU SCRIPT: script_ad_dos_santos.ps1			
+NOM DU SCRIPT: script_ad.ps1			
 *================================================================*
 DESCRIPTION:
 
 Ce script va nous permettre de: 
 
-1* créer des unités d'organosations
+1* créer des unités d’organisation
 2* créer des groupes
 3* créer des utilisateurs
 
@@ -13,7 +13,7 @@ ATTENTION la création de ces objets se fait sur la racine efficom.local
 *================================================================*
 AUTEUR: Daniel DOS SANTOS < daniel.massy91@gmail.com >			
 *================================================================*
-DATE DE CREATION: 02/03/2018	
+DATE DE CRÉATION: 02/03/2018	
 *================================================================*
 POWERSHELL VERSION: 5.1  
 *================================================================*
@@ -23,7 +23,7 @@ POWERSHELL VERSION: 5.1
 $domaine = [ADSI]"LDAP://dc=efficom,dc=local"
 $fin = 0
 
-#bannière
+#Bannière
 clear-host
 $banniere = @"
 ______                          _          _ _ 
@@ -50,7 +50,7 @@ sleep 4
 while ($fin -ne 1)
 {
 clear-host
-write-host "`nVeillez choisir une option:"
+write-host "`nVeillez choisir une option :"
 write-host ""
 write-host "####################################" -f 'green'
 write-host "                                    " -b 'black'
@@ -62,7 +62,7 @@ write-host "                                    " -b 'black'
 write-host "####################################" -f 'green'
 write-host ""
 
-$choix = read-host "votre choix "
+$choix = read-host "Votre choix : "
 
 write-host ""
 
@@ -80,7 +80,7 @@ switch ($choix)
         $utilisateur.put("sn","$util_nom") 	 
         $utilisateur.put("givenName","$util_pre") 	 
         $utilisateur.setInfo() 
-        Read-Host "validez pour continuer"
+        Read-Host "Validez pour continuer"
         write-Host "<< Fait >>"
         sleep 2
       }
@@ -94,7 +94,7 @@ switch ($choix)
         $groupe = $domaine.create("group","cn=$groupe_n") 	 
         $groupe.put("samaccountName","$groupe_sam") 	 
         $groupe.setinfo()
-        Read-Host "validez pour continuer"
+        Read-Host "Validez pour continuer"
         write-Host "<< Fait >>"
         sleep 2
       }
@@ -108,7 +108,7 @@ switch ($choix)
         $organisation = $domaine.create("organizationalUnit","ou=$ou")  
         $organisation.put("description", "$ou_desc") 	 
         $organisation.setInfo()  
-        Read-Host "validez pour continuer"
+        Read-Host "Validez pour continuer"
         write-Host "<< Fait >>"
         sleep 2
       }
@@ -125,7 +125,7 @@ switch ($choix)
 default
       { 
         Write-Host "##########################" -f Red -b black
-        Write-Host "##   Erreur de syntax   ##" -f Red -b black
+        Write-Host "##   Erreur de syntaxe  ##" -f Red -b black
         Write-Host "## Veuillez recommencer ##" -f Red -b black
         Write-Host "##########################" -f Red -b black
         sleep 3
